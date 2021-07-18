@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0e615d"],{"96f0":function(n,t,e){"use strict";e.r(t);var a=function(){var n=this,t=n.$createElement,e=n._self._c||t;return e("section",{attrs:{id:"bannersection"}},[e("v-img",{attrs:{height:"100vh",src:"https://fakeimg.pl/1200x960/ccc"}})],1)},c=[],r={name:"SectionBanner",data:function(){return{}}},i=r,s=e("2877"),u=e("6544"),o=e.n(u),l=e("adda"),d=Object(s["a"])(i,a,c,!1,null,null,null);t["default"]=d.exports;o()(d,{VImg:l["a"]})}}]);
+//# sourceMappingURL=chunk-2d0e615d.a886180a.js.map
