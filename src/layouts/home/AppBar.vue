@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     //- 中螢幕(sm)以下高度變112(隱藏連結)
-    v-app-bar(id="home-app-bar" app prominent shrink-on-scroll elevate-on-scroll :height="screenSize<=960?112:156" width="100%" v-scroll="onScroll")
+    v-app-bar(id="home-app-bar" ref="appbar" app prominent shrink-on-scroll elevate-on-scroll :height="screenSize<=960?112:156" width="100%" v-scroll="onScroll")
       //- 標題Logo
       //- 離開頂部後改變狀態(移動到左側、字變小)
       a.appBarTitle(href="/" :class="{'leaveTop': leaveTop}")
@@ -63,10 +63,8 @@ export default {
     HomeDrawer: () => import("./Drawer"),
   },
 
-  created() {},
-
   data: () => ({
-    drawer: null,
+    drawer: false,
     appBarTitle: "Calf Wedding",
     appBarSubTitle: "PHOTOGRAPHY",
     tabs: [
@@ -74,9 +72,10 @@ export default {
         name: "首頁",
         hash: "home",
         menu: [
-          { title: "最新消息", path: "/" },
-          { title: "作品展示", path: "/" },
+          { title: "精選作品", path: "/" },
+          { title: "專業服務", path: "/" },
           { title: "好評分享", path: "/" },
+          { title: "聯絡我們", path: "/" },
         ],
       },
       {
@@ -180,7 +179,7 @@ $color-orange-pink: #fb6b5e
   top: 12px
   transform: translateX(-50%)
   text-decoration: none
-  color: rgba(black,0.8)
+  color: rgba(black,0.8) !important
   width: max-content
   display: flex
   flex-direction: column

@@ -16,3 +16,8 @@ export default {
   },
 };
 </script>
+
+<style lang="sass">
+a
+  color: white !important
+</style>
