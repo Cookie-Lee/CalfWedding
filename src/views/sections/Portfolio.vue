@@ -5,15 +5,17 @@
       .heading.mb-4
         .chtitle {{ title }}
         .engtitle {{ engTitle }}
-      v-row
+      v-row(v-intersect.once="onIntersect")
         //- 作品精選
-        v-col(cols="12" sm="6" md="4" lg="3" v-for="(item,i) in portfolio" :key="i")
-          //- 圖片
-          .portfolioImg(v-ripple)
-            img(:src="item.src")
-            span.comment(v-html="item.comment")
-          //- 標題
-          .portfolioTitle {{ item.title }}
+        v-col(cols="12" sm="6" md="4" v-for="(item,i) in portfolio" :key="i")
+          transition(name="my-fade-slide")
+            div(v-show="show[i]")
+              //- 圖片
+              .portfolioImg(v-ripple)
+                v-img.img(:src="item.src")
+                span.comment(v-html="item.comment")
+              //- 標題
+              .portfolioTitle {{ item.title }}
 </template>
 <script>
 import portfolio1 from "../../assets/portfolio/portfolio1.jpg";
@@ -28,6 +30,8 @@ export default {
 
   data() {
     return {
+      show: [],
+      isIntersecting: false,
       engTitle: "PORTFOLIO",
       title: "精選作品",
       portfolio: [
@@ -69,11 +73,30 @@ export default {
       ],
     };
   },
+
+  created() {},
+
+  methods: {
+    onIntersect(entries, observer) {
+      if (entries[0].isIntersecting) this.aniPortfolio();
+    },
+
+    aniPortfolio() {
+      this.portfolio.forEach((d, i) => {
+        setTimeout(() => {
+          this.show.push(true);
+        }, 300 * (i + 2));
+      });
+    },
+  },
 };
 </script>
 
 <style lang="sass" scoped>
 $color-orange-pink: #fb6b5e
+
+#portfoliosection
+  min-height: 400px
 
 // 標題置中 超出隱藏
 .heading
@@ -119,9 +142,9 @@ $color-orange-pink: #fb6b5e
   transition: 0.3s
   overflow: hidden
   cursor: pointer
-  aspect-ratio: 3 / 2 // 維持寬高比
+  aspect-ratio: 3 / 2 // 維持寬高比 此功能ios不支援...
   // 圖片放大1.5倍 水平垂直置中
-  img
+  .img
     position: absolute
     left: 50%
     top: 50%
@@ -134,22 +157,36 @@ $color-orange-pink: #fb6b5e
     box-shadow: 2px 2px 10px rgba(black,0.3)
     transform: translate(-1px,-1px)
     // 滑入時圖片放大1.8倍
-    img
+    .img
       transform: translate(-50%,-50%) scale(1.8)
-  // 註解
-  .comment
-    position: absolute
-    left: 0
-    bottom: 0
-    width: 100%
-    text-align: center
-    padding: 2px 12px 0px 12px
-    color: white
-    background-color: rgba(black,0.4)
-    font-size: 8px
 
 .portfolioTitle
   color: rgba($color-orange-pink,0.9)
   font-size: 16px
   padding: 8px 4px
+
+@supports not (aspect-ratio: 3 / 2)
+  .portfolioImg
+    .img
+      position: unset
+      width: 100%
+      transition: 0.3s
+      transform: scale(1.5)
+      @media (min-width: 960px)
+        height: 22vw
+      @media (max-width: 960px)
+        height: 33vw
+      @media (max-width: 600px)
+        height: 66vw
+    &:hover
+      .img
+        transform: scale(1.8)
+
+// 自定義淡入淡出動畫
+.my-fade-slide-enter-active, .my-fade-slide-leave-active
+  transition: all 1s
+
+.my-fade-slide-enter, .my-fade-slide-leave-to
+  transform: translateY(20%)
+  opacity: 0
 </style>

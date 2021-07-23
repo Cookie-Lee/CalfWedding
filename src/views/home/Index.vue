@@ -10,7 +10,14 @@ export default {
   extends: BaseView,
 
   mixins: [
-    LoadSections(["Banner", "Portfolio", "SectionB", "SectionC", "Info"]),
+    LoadSections([
+      "Banner",
+      "Portfolio",
+      "Services",
+      "Parallax",
+      "Recommend",
+      "Contact",
+    ]),
   ],
 
   props: {

@@ -11,9 +11,9 @@
       //- 中螢幕(sm)以下隱藏
       v-row.ma-0.tabs.hidden-sm-and-down
         v-col.pa-0.tab(v-for="(tab, index) in tabs" :key="tab.hash") 
-          v-menu(v-if="tab.menu" transition="slide-y-transition" bottom offset-y open-on-hover nudge-top="-4" nudge-left="8" nudge-width="16")
+          v-menu(v-if="tab.menu" transition="slide-y-transition" bottom offset-y open-on-hover nudge-top="-4")
             template(v-slot:activator="{ on, attrs }")
-              v-btn(text v-bind="attrs" v-on="on") {{ tab.name }}
+              v-btn(text block v-bind="attrs" v-on="on") {{ tab.name }}
             v-card.d-flex.flex-column.pt-3.pb-1
               v-btn.menubtn.mb-1(v-for="(item, i) in tab.menu" :key="i" text tile) {{ item.title }}
           v-btn(v-else text) {{ tab.name }}
@@ -74,7 +74,7 @@ export default {
         menu: [
           { title: "精選作品", path: "/" },
           { title: "專業服務", path: "/" },
-          { title: "好評分享", path: "/" },
+          { title: "好評推薦", path: "/" },
           { title: "聯絡我們", path: "/" },
         ],
       },
@@ -84,7 +84,7 @@ export default {
         menu: [
           { title: "專業服務", path: "/" },
           { title: "團隊成員", path: "/" },
-          { title: "好評分享", path: "/" },
+          { title: "好評推薦", path: "/" },
         ],
       },
       {
@@ -175,16 +175,17 @@ $color-orange-pink: #fb6b5e
 
 .appBarTitle
   position: absolute
-  left: 50%
+  left: calc(50% - 156.1px)
   top: 12px
-  transform: translateX(-50%)
+  // transform 在 ios 設備上 會延遲計算 導致動畫出錯
+  // transform: translate(50%,0)
   text-decoration: none
   color: rgba(black,0.8) !important
   width: max-content
   display: flex
   flex-direction: column
   align-items: center
-  transition: 1s
+  transition: all 1s, transform 0.2s
   span:nth-child(1)
     font-family: 'Alex Brush', cursive
     font-size: 3.5rem
@@ -201,8 +202,8 @@ $color-orange-pink: #fb6b5e
     transition: 1s
   &.leaveTop
     left: 20px
-    top: 50%
-    transform: translateY(-50%)
+    top: calc(50% - 24px)
+    // transform: translate(0,-50%)
     span:nth-child(1)
       letter-spacing: 1px
       font-size: 2rem

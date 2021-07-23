@@ -1,7 +1,8 @@
 <template lang="pug">
   section(id="bannersection")
     v-carousel.carousel(:height="this.$vuetify.breakpoint.width<=960?'calc(100vh - 112px)':'calc(100vh - 156px)'" cycle interval="6000" hide-delimiters :show-arrows="false")
-      v-carousel-item(v-for="(banner,i) in banner" :key="i" :src="banner.src" reverse-transition="my-fade" transition="my-fade")
+      v-carousel-item(v-for="(banner,i) in banner" :key="i" reverse-transition="my-fade" transition="my-fade")
+        v-img(:src="banner.src" eager height="100%")
         span.comment(v-html="banner.text")
 </template>
 
@@ -62,13 +63,6 @@ export default {
 <style lang="sass" scoped>
 .carousel
   margin-top: 156px
-
-.comment
-  background-color: rgba(black,0.4)
-  padding: 2px 12px 0px 12px
-  position: absolute
-  right: 0
-  bottom: 0
 
 @media (max-width: 960px)
   .carousel
