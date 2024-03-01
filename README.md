@@ -67,6 +67,11 @@
 最後的頁尾是聯絡我們區域，使用與主色相反的黑底白字來呈現
 ![image](./readme/img_08.png)
 
+####
+
+點擊至網頁以體驗最佳效果  
+Gitgub Page: https://cookie-lee.github.io/CalfWedding/
+
 <br/>
 
 ### #安裝步驟
